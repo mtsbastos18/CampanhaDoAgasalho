@@ -98,6 +98,7 @@ export default class Main extends Component {
                     }}
                 >
                     <Marker title={"Sua Localização"} 
+                        pinColor={"#58afd0"}
                         coordinate={{
                             latitude: this.state.origin.latitude,
                             longitude: this.state.origin.longitude,
