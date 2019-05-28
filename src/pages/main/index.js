@@ -13,18 +13,25 @@ import {
 
 export default class Main extends Component {
     static navigationOptions = {
-        header: null,
-    };
+        title: 'Pontos de coleta',
+        headerStyle: {
+          backgroundColor: '#eeee',
+        },
+        headerTintColor: '#ff4500',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+          textAlign: 'right',
+        },
+      };
+    
 
     state = {
-
         origin: { latitude: -30.036814, longitude: -51.216607 },
-    
-      };
+    };
 
     async requestLocationPermission() {
         try {
-    
+
             const granted = await PermissionsAndroid.request(
                 PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
                 {
@@ -33,44 +40,44 @@ export default class Main extends Component {
                         'so you can be navigated.'
                 }
             );
-    
+
             if (granted === PermissionsAndroid.RESULTS.GRANTED) {
                 console.log("You can use the location");
                 return true;
-    
+
             } else {
                 console.log("location permission denied");
                 return false;
             }
-    
+
         } catch (err) {
             console.warn(err)
         }
-    
-      }
-    
-      getLocation = () => {
+
+    }
+
+    getLocation = () => {
         navigator.geolocation.getCurrentPosition((position) => {
             let newOrigin = {
                 latitude: position.coords.latitude,
                 longitude: position.coords.longitude
             };
-    
+
             console.log('new origin');
             console.log(newOrigin);
-    
+
             this.setState({
                 origin: newOrigin
             });
         }, (err) => {
             console.log('error');
             console.log(err)
-    
-        }, {enableHighAccuracy: true, timeout: 2000})
-    
-      };
 
-      async componentDidMount() {
+        }, { enableHighAccuracy: false, timeout: 2000 })
+
+    };
+
+    async componentDidMount() {
         let isGranted = await this.requestLocationPermission();
 
         if (isGranted) {
@@ -78,17 +85,17 @@ export default class Main extends Component {
         }
 
         this.getLocation();
+    }
 
-      }
 
     render() {
         return (
 
             <Container>
-                <Logo source={require('../../images/logo2.png')} resizeMode="contain" />
+                {/* <Logo source={require('../../images/logo2.png')} resizeMode="contain" /> */}
 
                 <MapView
-                    style={styles.map}
+                    style={[styles.map]}
                     loadingEnabled={true}
                     region={{
                         latitude: this.state.origin.latitude,
@@ -96,12 +103,13 @@ export default class Main extends Component {
                         latitudeDelta: 0.015,
                         longitudeDelta: 0.0121,
                     }}
+                    showsUserLocation={true}
+                    showsMyLocationButton={true}
                 >
-                    <Marker title={"Sua Localização"} 
+                    <Marker title={"Sua Localização"}
                         pinColor={"#58afd0"}
                         coordinate={{
-                            latitude: this.state.origin.latitude,
-                            longitude: this.state.origin.longitude,
+                            latitude: -30.036814, longitude: -51.216607
                         }}>
                     </Marker>
                 </MapView>
@@ -114,11 +122,10 @@ export default class Main extends Component {
 
 const styles = StyleSheet.create({
     map: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
+        width: "100%",
+        height: "100%",
+        margin: 0,
+        padding: 0
 
     },
 });
