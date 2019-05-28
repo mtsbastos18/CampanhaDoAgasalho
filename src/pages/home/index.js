@@ -28,6 +28,10 @@ export default class Home extends Component {
         this.props.navigation.navigate('Main');
     };
 
+    handleFiltro = () => {
+        this.props.navigation.navigate('Camera');
+    };
+
     render() {
         return (
 
@@ -35,6 +39,9 @@ export default class Home extends Component {
                 <Logo source={require('../../images/logo2.png')} resizeMode="contain" />
                 <Button>
                     <ButtonText onPress={this.handlePontosDeColeta}>Pontos de coleta</ButtonText>
+                </Button>
+                <Button>
+                    <ButtonText onPress={this.handleFiltro}>Compartilhar filtro</ButtonText>
                 </Button>
             </Container>
         );
