@@ -27,6 +27,17 @@ export default class Main extends Component {
 
     state = {
         origin: { latitude: -30.036814, longitude: -51.216607 },
+        markers: [{title: 'DEMHAB',  address: 'Av. Princesa Isabel, 1115- Santana', lat: -30.045653,long: -51.203135},
+        {title: 'PREVIMPA',  address: 'Rua Uruguai, 277 , 5º andar - Centro Histórico', lat: -30.029097,long:  -51.228722},
+        {title: 'FASC',  address: 'Av. Ipiranga, 310- Praia de Belas', lat: -30.047703,long:  -51.225378 },
+        {title: 'AMRIGS',  address: 'Av. Ipiranga,5311- Partenon', lat: -30.058015,long:  -51.186086},
+        {title: 'PROCON',  address: 'Rua dos Andradas,686 - Centro Histórico', lat: -30.031595,long: -51.234848},
+        {title: 'Edificio José Montaury',  address: 'Siqueira Campos 1300- Centro', lat: -30.027738,long: -51.228825},
+        {title: 'AMOBELA',  address: 'Av. Dr. Nilo Peçanha 1250 – Boa Vista', lat: -30.028976,long: -51.1795715},
+        {title: 'Shopping João Pessoa',  address: 'Av. João Pessoa, 1831 – Farroupilha', lat: -30.045614,long: -51.213088},
+        {title: 'Shopping Total',  address: 'Av. Cristóvão Colombo, 545 – Floresta', lat: -30.026220,long: -51.212054},
+        {title: 'Barra Shopping Sul',  address: 'Av. Diário de Notícias, 300 –Cristal', lat:-30.084376,long: -51.247160},
+        ]
     };
 
     async requestLocationPermission() {
@@ -106,12 +117,15 @@ export default class Main extends Component {
                     showsUserLocation={true}
                     showsMyLocationButton={true}
                 >
-                    <Marker title={"Sua Localização"}
-                        pinColor={"#58afd0"}
+                    {this.state.markers.map(marker => (
+                        <Marker
                         coordinate={{
-                            latitude: -30.036814, longitude: -51.216607
-                        }}>
-                    </Marker>
+                            latitude: marker.lat, longitude: marker.long
+                        }}
+                        title={marker.title}
+                        description={marker.description}
+                      />
+                    ))}
                 </MapView>
 
             </Container>

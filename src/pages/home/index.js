@@ -28,13 +28,20 @@ export default class Home extends Component {
         this.props.navigation.navigate('Main');
     };
 
+    handleListaPontos = () => {
+        this.props.navigation.navigate('List');
+    };
+
     render() {
         return (
 
             <Container>
                 <Logo source={require('../../images/logo2.png')} resizeMode="contain" />
-                <Button>
-                    <ButtonText onPress={this.handlePontosDeColeta}>Pontos de coleta</ButtonText>
+                <Button onPress={this.handlePontosDeColeta}>
+                    <ButtonText>Mapa</ButtonText>
+                </Button>
+                <Button onPress={this.handleListaPontos}>
+                    <ButtonText>Lista</ButtonText>
                 </Button>
             </Container>
         );
